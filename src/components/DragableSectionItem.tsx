@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Section } from "@/store/slices/types";
-import { GripVertical } from "lucide-react";
+import { Delete, GripVertical, Recycle, Trash } from "lucide-react";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSelectedSection } from "@/store/slices/selectedSectionSlice";
+import { deleteSection } from "@/store/slices/sectionsSlice";
 
 interface DragableSectionItemProps {
   section: Section;
@@ -30,14 +31,23 @@ const DragableSectionItem = ({
       <p className="text-sm font-medium capitalize">
         {section.type} {index + 1}
       </p>
-      <Button
-        ref={handleRef}
-        variant="outline"
-        size="sm"
-        className="cursor-move"
-      >
-        <GripVertical className="h-4 w-4" />
-      </Button>
+      <div>
+        <Button
+          ref={handleRef}
+          variant="outline"
+          size="sm"
+          className="cursor-move mr-1"
+        >
+          <GripVertical className="h-4 w-4" />
+        </Button>
+        <Button
+          onClick={() => dispatch(deleteSection({ id: id }))}
+          variant="outline"
+          size="sm"
+        >
+          <Trash className="h-4 w-4" />
+        </Button>
+      </div>
     </div>
   );
 };
