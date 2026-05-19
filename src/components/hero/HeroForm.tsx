@@ -27,6 +27,16 @@ const defaultHeroProps: HeroProps = {
   },
 };
 
+// Helper function to safely get nested property
+const getNestedValue = (obj: any, path: string): string => {
+  try {
+    const value = path.split(".").reduce((o: any, k: string) => o?.[k], obj);
+    return value || "";
+  } catch {
+    return "";
+  }
+};
+
 const HeroForm = () => {
   const dispatch = useDispatch();
   const sections = useSelector((state: any) => state.sections.sections);
@@ -42,10 +52,26 @@ const HeroForm = () => {
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Sync when selected section changes
   useEffect(() => {
     if (selectedSection?.props) {
-      setData(selectedSection.props);
+      setData({
+        ...defaultHeroProps,
+        ...selectedSection.props,
+        colors: {
+          ...defaultHeroProps.colors,
+          ...selectedSection.props.colors,
+        },
+        buttons: {
+          primary: {
+            ...defaultHeroProps.buttons.primary,
+            ...selectedSection.props.buttons?.primary,
+          },
+          secondary: {
+            ...defaultHeroProps.buttons.secondary,
+            ...selectedSection.props.buttons?.secondary,
+          },
+        },
+      });
     }
   }, [selectedSectionId]);
 
@@ -54,10 +80,12 @@ const HeroForm = () => {
       const next = structuredClone(prev);
       const keys = path.split(".");
       let obj: any = next;
-      for (let i = 0; i < keys.length - 1; i++) obj = obj[keys[i]];
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (!obj[keys[i]]) obj[keys[i]] = {};
+        obj = obj[keys[i]];
+      }
       obj[keys[keys.length - 1]] = value;
 
-      // Debounce Redux dispatch — only fires 300ms after user stops typing
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {
         if (selectedSectionId) {
@@ -79,7 +107,6 @@ const HeroForm = () => {
 
   return (
     <div className="flex flex-col gap-6 px-4 py-5 text-sm">
-      {/* ── Content ───────────────────────────────────────────────────── */}
       <section>
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
           Content
@@ -88,7 +115,7 @@ const HeroForm = () => {
           <div className="flex flex-col gap-1.5">
             <Label>Title</Label>
             <Input
-              value={data.title}
+              value={data.title || ""}
               onChange={(e) => set("title", e.target.value)}
               placeholder="Hero title"
             />
@@ -96,7 +123,7 @@ const HeroForm = () => {
           <div className="flex flex-col gap-1.5">
             <Label>Subtitle</Label>
             <Input
-              value={data.subtitle}
+              value={data.subtitle || ""}
               onChange={(e) => set("subtitle", e.target.value)}
               placeholder="Hero subtitle"
             />
@@ -106,7 +133,6 @@ const HeroForm = () => {
 
       <Separator />
 
-      {/* ── Layout ────────────────────────────────────────────────────── */}
       <section>
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
           Layout
@@ -119,8 +145,12 @@ const HeroForm = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="centered">Centered</SelectItem>
-              <SelectItem value="leftImage">Left Image</SelectItem>
-              <SelectItem value="rightImage">Right Image</SelectItem>
+              <SelectItem value="leftImage" disabled>
+                Left Image
+              </SelectItem>
+              <SelectItem value="rightImage" disabled>
+                Right Image
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -128,7 +158,6 @@ const HeroForm = () => {
 
       <Separator />
 
-      {/* ── Colors ────────────────────────────────────────────────────── */}
       <section>
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
           Colors
@@ -146,12 +175,12 @@ const HeroForm = () => {
               <div className="flex items-center gap-2">
                 <input
                   type="color"
-                  value={path.split(".").reduce((o: any, k) => o[k], data)}
+                  value={getNestedValue(data, path)}
                   onChange={(e) => set(path, e.target.value)}
                   className="w-8 h-8 rounded cursor-pointer border border-border bg-transparent"
                 />
                 <span className="text-xs text-muted-foreground font-mono">
-                  {path.split(".").reduce((o: any, k) => o[k], data)}
+                  {getNestedValue(data, path)}
                 </span>
               </div>
             </div>
@@ -161,7 +190,6 @@ const HeroForm = () => {
 
       <Separator />
 
-      {/* ── Primary button ────────────────────────────────────────────── */}
       <section>
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
           Primary Button
@@ -170,14 +198,14 @@ const HeroForm = () => {
           <div className="flex items-center justify-between">
             <Label>Visible</Label>
             <Switch
-              checked={data.buttons.primary.visibility}
+              checked={data?.buttons?.primary?.visibility ?? true}
               onCheckedChange={(v) => set("buttons.primary.visibility", v)}
             />
           </div>
           <div className="flex flex-col gap-1.5">
             <Label>Text</Label>
             <Input
-              value={data.buttons.primary.text}
+              value={data?.buttons?.primary?.text ?? ""}
               onChange={(e) => set("buttons.primary.text", e.target.value)}
               placeholder="Button label"
             />
@@ -185,7 +213,7 @@ const HeroForm = () => {
           <div className="flex flex-col gap-1.5">
             <Label>Link</Label>
             <Input
-              value={data.buttons.primary.link}
+              value={data.buttons?.primary?.link ?? ""}
               onChange={(e) => set("buttons.primary.link", e.target.value)}
               placeholder="https://..."
             />
@@ -193,7 +221,7 @@ const HeroForm = () => {
           <div className="flex flex-col gap-1.5">
             <Label>Style</Label>
             <Select
-              value={data.buttons.primary.variant}
+              value={data.buttons?.primary?.variant ?? "default"}
               onValueChange={(v: any) => set("buttons.primary.variant", v)}
             >
               <SelectTrigger>
@@ -220,7 +248,6 @@ const HeroForm = () => {
 
       <Separator />
 
-      {/* ── Secondary button ──────────────────────────────────────────── */}
       <section>
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
           Secondary Button
@@ -229,14 +256,14 @@ const HeroForm = () => {
           <div className="flex items-center justify-between">
             <Label>Visible</Label>
             <Switch
-              checked={data.buttons.secondary?.visibility ?? false}
+              checked={data.buttons?.secondary?.visibility ?? true}
               onCheckedChange={(v) => set("buttons.secondary.visibility", v)}
             />
           </div>
           <div className="flex flex-col gap-1.5">
             <Label>Text</Label>
             <Input
-              value={data.buttons.secondary?.text ?? ""}
+              value={data.buttons?.secondary?.text ?? ""}
               onChange={(e) => set("buttons.secondary.text", e.target.value)}
               placeholder="Button label"
             />
@@ -244,7 +271,7 @@ const HeroForm = () => {
           <div className="flex flex-col gap-1.5">
             <Label>Link</Label>
             <Input
-              value={data.buttons.secondary?.link ?? ""}
+              value={data.buttons?.secondary?.link ?? ""}
               onChange={(e) => set("buttons.secondary.link", e.target.value)}
               placeholder="https://..."
             />
@@ -252,7 +279,7 @@ const HeroForm = () => {
           <div className="flex flex-col gap-1.5">
             <Label>Style</Label>
             <Select
-              value={data.buttons.secondary?.variant ?? "ghost"}
+              value={data.buttons?.secondary?.variant ?? "ghost"}
               onValueChange={(v: any) => set("buttons.secondary.variant", v)}
             >
               <SelectTrigger>

@@ -1,8 +1,11 @@
 import { changeSelectedSection } from "@/store/slices/selectedSectionSlice";
-import { HeroProps, Section } from "@/types/types";
+import { Section } from "@/types/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HeroSection from "./hero/HeroSection";
+import { HeroProps } from "@/types/hero.types";
+import ProjectsSection from "./projects/ProjectsSection";
+import { ProjectsProps } from "@/types/projects.types";
 
 const RenderComponents = () => {
   const dispatch = useDispatch();
@@ -30,6 +33,11 @@ const RenderComponents = () => {
         >
           {section.type === "hero" ? (
             <HeroSection {...(section.props as HeroProps)} />
+          ) : (
+            ""
+          )}
+          {section.type === "projects" ? (
+            <ProjectsSection {...(section.props as ProjectsProps)} />
           ) : (
             ""
           )}

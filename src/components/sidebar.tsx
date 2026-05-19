@@ -6,7 +6,11 @@ import {
   SidebarGroup,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import { addSection, updateSection } from "@/store/slices/sectionsSlice";
+import {
+  addSection,
+  selectSectionById,
+  updateSection,
+} from "@/store/slices/sectionsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "./ui/button";
 import { Section, SectionsState } from "@/types/types";
@@ -23,21 +27,23 @@ import {
 import DeleteButton from "./DeleteButton";
 import DragableSections from "./DragableSections";
 import { HeroProps, HeroSection } from "@/types/hero.types";
+import { ProjectsSection } from "@/types/projects.types";
+import ProjectsForm from "./projects/ProjectsForm";
 
 export function AppSidebar() {
   const dispatch = useDispatch();
 
   const sections = useSelector((state: any) => state.sections.sections);
   const selectedSection = useSelector((state: any) => state.selectedSection.id);
-
+  const sectionType = useSelector(selectSectionById(selectedSection));
   const heroSection: HeroSection = {
     id: crypto.randomUUID(),
     type: "hero",
     props: {
-      title: "New Hero Section",
+      title: "Building things people actually use",
       subtitle: "Frontend Developer",
       variant: "centered",
-      colors: { title: "#ffffff", subtitle: "#d1d5db", background: "#0f172a" },
+      colors: { title: "", subtitle: "", background: "" },
       buttons: {
         primary: {
           text: "Get Started",
@@ -55,10 +61,53 @@ export function AppSidebar() {
     } satisfies HeroProps,
   };
 
+  const minimalProjects: ProjectsSection = {
+    id: "work",
+    type: "projects",
+    props: {
+      title: "Featured projects",
+      subtitle: "A selection of work that I'm most proud of",
+      variant: "default",
+      columns: 3,
+      projects: [
+        {
+          id: "example-1",
+          title: "Design System",
+          description: "Scalable component library and design tokens",
+          link: "#",
+          githubLink: "#",
+          status: "completed",
+          technologies: ["React", "Storybook", "Styled Components"],
+        },
+        {
+          id: "example-2",
+          title: "Analytics Dashboard",
+          description: "Real-time data visualization platform",
+          link: "#",
+          status: "in-progress",
+          technologies: ["Vue", "D3.js", "Express"],
+        },
+        {
+          id: "example-3",
+          title: "Mobile App",
+          description: "Cross-platform mobile experience",
+          link: "#",
+          githubLink: "#",
+          status: "pending",
+          technologies: ["React Native", "Firebase", "Redux"],
+        },
+      ],
+    },
+  };
+
   function handleAddSection(type: string) {
     if (type === "hero") {
       dispatch(addSection(heroSection));
     }
+    if (type === "projects") {
+      dispatch(addSection(minimalProjects));
+    }
+    console.log(sections);
   }
 
   return (
@@ -80,7 +129,7 @@ export function AppSidebar() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="hero">Hero</SelectItem>
-                {/* <SelectItem value="Projects">Project</SelectItem> */}
+                <SelectItem value="projects">Project</SelectItem>
                 <SelectItem value="Add Section" className="hidden">
                   Add Section
                 </SelectItem>
@@ -93,7 +142,8 @@ export function AppSidebar() {
         <Separator />
         <div>
           <DeleteButton className="m-4" />
-          <HeroForm />
+          {sectionType?.type === "hero" ? <HeroForm /> : ""}
+          {sectionType?.type === "projects" ? <ProjectsForm /> : ""}
         </div>
         <SidebarGroup />
       </SidebarContent>

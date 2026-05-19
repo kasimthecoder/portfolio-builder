@@ -27,7 +27,7 @@ export interface HeroProps {
   };
 
   buttons: {
-    primary: HeroButton;
+    primary?: HeroButton;
     secondary?: HeroButton;
   };
 }
