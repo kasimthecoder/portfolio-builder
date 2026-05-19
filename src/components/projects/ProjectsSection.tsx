@@ -6,7 +6,7 @@ import ProjectsSectionDefault from "./varient/deafult";
 
 const ProjectsSection = (props: ProjectsProps) => {
   return (
-    <div className="overflow-hidden max-w-screen">
+    <div className="overflow-hidden max-w-screen z-10">
       {props.variant === "default" ? <ProjectsSectionDefault {...props} /> : ""}
     </div>
   );

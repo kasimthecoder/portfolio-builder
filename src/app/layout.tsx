@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Space_Grotesk, Roboto, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -8,10 +8,21 @@ import Providers from "./providers";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const roboto = Roboto({
+  weight: ["100", "300", "400", "500", "700", "900"],
+  subsets: ["latin"],
+  variable: "--font-roboto",
+  display: "swap",
+});
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(geistSans.variable, geistMono.variable)}>
+      <body className={cn(roboto.variable, geistMono.variable)}>
         <Analytics />
         <ThemeProvider
           attribute="class"
@@ -36,11 +47,7 @@ export default function RootLayout({
         >
           <Providers>
             <SidebarProvider>
-              <SidebarTrigger className="fixed top-3 left-3 z-50" />
-              <main className="w-full">
-                {children}
-                <AppSidebar />
-              </main>
+              <main className="w-full">{children}</main>
             </SidebarProvider>
           </Providers>
         </ThemeProvider>

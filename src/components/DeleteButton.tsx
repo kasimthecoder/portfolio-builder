@@ -16,9 +16,9 @@ const DeleteButton = (props: any) => {
   }
   return (
     <div {...props}>
-      <Button onClick={handleDelete} variant={"destructive"}>
+      {/* <Button onClick={handleDelete} variant={"destructive"}>
         Delete Section
-      </Button>
+      </Button> */}
     </div>
   );
 };

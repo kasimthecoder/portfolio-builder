@@ -167,7 +167,6 @@ const HeroForm = () => {
             [
               ["Title color", "colors.title"],
               ["Subtitle color", "colors.subtitle"],
-              ["Background", "colors.background"],
             ] as [string, string][]
           ).map(([label, path]) => (
             <div key={path} className="flex items-center justify-between">

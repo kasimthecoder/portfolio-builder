@@ -111,7 +111,7 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar variant="floating">
+    <Sidebar variant="floating" className="z-50">
       <SidebarHeader />
       <SidebarContent>
         <SidebarGroup />
@@ -141,7 +141,6 @@ export function AppSidebar() {
 
         <Separator />
         <div>
-          <DeleteButton className="m-4" />
           {sectionType?.type === "hero" ? <HeroForm /> : ""}
           {sectionType?.type === "projects" ? <ProjectsForm /> : ""}
         </div>

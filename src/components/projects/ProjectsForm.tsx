@@ -189,7 +189,7 @@ const ProjectsForm = () => {
       {/* Section Settings */}
       <section>
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
-          Section Settings
+          Content
         </p>
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1.5">

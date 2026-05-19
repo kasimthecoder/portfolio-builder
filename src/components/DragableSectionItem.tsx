@@ -25,7 +25,7 @@ const DragableSectionItem = ({
       ref={ref}
       className={`flex justify-between items-center w-full border cursor-pointer rounded-xl my-2 px-4 py-1 bg-card ${
         isDragging ? "opacity-50" : ""
-      } ${selectedSection.id === id ? "border-black border-2" : ""}`}
+      } ${selectedSection.id === id ? "dark:border-white border-black border-2" : ""}`}
       onClick={() => dispatch(changeSelectedSection(id))}
     >
       <p className="text-sm font-medium capitalize">
