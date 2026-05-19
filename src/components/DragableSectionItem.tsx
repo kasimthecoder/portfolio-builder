@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Section } from "@/store/slices/types";
+import { Section } from "@/types/types";
 import { Delete, GripVertical, Recycle, Trash } from "lucide-react";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { useDispatch, useSelector } from "react-redux";

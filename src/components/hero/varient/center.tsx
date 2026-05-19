@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { HeroProps } from "@/store/slices/types";
+import { HeroProps } from "@/types/hero.types";
 
 export default function CenterHeroSection({
   title,
@@ -19,7 +19,7 @@ export default function CenterHeroSection({
 
       {/* Layered overlays for depth */}
       <div className="absolute inset-0 bg-black/55" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/50" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-black/50" />
       <div
         className="absolute inset-0"
         style={{
@@ -29,7 +29,7 @@ export default function CenterHeroSection({
       />
 
       {/* Top accent line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-gradient-to-b from-transparent to-white/30" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-linear-to-b from-transparent to-white/30" />
 
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto">
@@ -102,7 +102,7 @@ export default function CenterHeroSection({
         <span className="text-[10px] uppercase tracking-[0.3em] text-white">
           Scroll
         </span>
-        <div className="w-px h-8 bg-gradient-to-b from-white to-transparent" />
+        <div className="w-px h-8 bg-linear-to-b from-white to-transparent" />
       </div>
     </section>
   );

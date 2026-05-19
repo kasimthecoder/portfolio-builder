@@ -1,5 +1,5 @@
 import { changeSelectedSection } from "@/store/slices/selectedSectionSlice";
-import { HeroProps, Section } from "@/store/slices/types";
+import { HeroProps, Section } from "@/types/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HeroSection from "./hero/HeroSection";

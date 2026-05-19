@@ -1,7 +1,7 @@
 "use client";
 
 import { updateSection } from "@/store/slices/sectionsSlice";
-import { HeroProps } from "@/store/slices/types";
+import { HeroProps } from "@/types/hero.types";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input } from "@/components/ui/input";

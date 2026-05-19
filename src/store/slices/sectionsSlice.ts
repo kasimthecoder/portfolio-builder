@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Section, SectionsState } from "./types";
+import { Section, SectionsState } from "../../types/types";
 
 // Helper to persist sections
 const saveSections = (sections: Section[]) => {

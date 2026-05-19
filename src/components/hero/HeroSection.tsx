@@ -1,4 +1,4 @@
-import { HeroProps } from "@/store/slices/types";
+import { HeroProps } from "@/types/hero.types";
 import React from "react";
 import CenterHeroSection from "./varient/center";
 

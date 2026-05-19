@@ -9,12 +9,7 @@ import {
 import { addSection, updateSection } from "@/store/slices/sectionsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "./ui/button";
-import {
-  HeroProps,
-  HeroSection,
-  Section,
-  SectionsState,
-} from "@/store/slices/types";
+import { Section, SectionsState } from "@/types/types";
 import HeroForm from "./hero/HeroForm";
 import { Separator } from "./ui/separator";
 import { Label } from "./ui/label";
@@ -27,6 +22,7 @@ import {
 } from "./ui/select";
 import DeleteButton from "./DeleteButton";
 import DragableSections from "./DragableSections";
+import { HeroProps, HeroSection } from "@/types/hero.types";
 
 export function AppSidebar() {
   const dispatch = useDispatch();

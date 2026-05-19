@@ -1,5 +1,5 @@
 "use client";
-import { Section, SectionsState } from "@/store/slices/types";
+import { Section, SectionsState } from "@/types/types";
 import React, { useState } from "react";
 import DragableSectionItem from "./DragableSectionItem";
 import { DragDropProvider } from "@dnd-kit/react";
