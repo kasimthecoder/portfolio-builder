@@ -12,6 +12,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
+import { ModeToggle } from "@/components/theme-toggle";
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
   subsets: ["latin"],
@@ -59,6 +60,8 @@ export default function RootLayout({
                 <SessionProvider>
                   <NextTopLoader color="white" showSpinner={false} />
                   {children}
+                  <ModeToggle />
+
                   <Toaster richColors position="bottom-right" />
                 </SessionProvider>
               </main>

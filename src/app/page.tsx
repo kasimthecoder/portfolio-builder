@@ -12,7 +12,6 @@ const Home = () => {
   return (
     <div className="w-screen py-0 px-0 overflow-hidden">
       <Navbar />
-      <ModeToggle />
       <HomeHeroSection />
       <Features />
       <ScreenshotSection />

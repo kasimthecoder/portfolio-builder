@@ -17,7 +17,7 @@ const BuilderClient = ({ portfolio }: { portfolio: Portfolio }) => {
     <div className="w-screen py-0 px-0 overflow-hidden">
       <ModeToggle />
       <AppSidebar portfolio={portfolio} />
-      <SidebarTrigger className="fixed top-3 left-3 z-[99999]" />
+      <SidebarTrigger className="fixed top-3 left-3 z-99999" />
       <RenderComponents portfolio={portfolio} />
     </div>
   );
