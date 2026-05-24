@@ -156,3 +156,17 @@ export async function deletePortfolio() {
 
   return redirect("/");
 }
+
+export async function getPortfolioByDomain({ domain }: { domain: string }) {
+  const res = await fetch(
+    `${process.env.BACKEND_URL}/api/v1/portfolio/portfolio/${domain}`,
+    {
+      method: "GET",
+    },
+  );
+
+  if (!res.ok) return { error: "Failed to fetch portfolio" };
+
+  const data = await res.json();
+  return data;
+}

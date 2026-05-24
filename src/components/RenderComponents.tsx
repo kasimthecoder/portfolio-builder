@@ -10,11 +10,20 @@ import { ProjectsProps } from "@/types/projects.types";
 import { Portfolio } from "./builder/BuilderClient";
 import { changeFullSections } from "@/store/slices/sectionsSlice";
 
-const RenderComponents = ({ portfolio }: { portfolio: Portfolio }) => {
+interface RenderComponentsProps {
+  portfolio: Portfolio;
+  selectionClick?: boolean;
+}
+
+const RenderComponents = ({
+  portfolio,
+  selectionClick = false,
+}: RenderComponentsProps) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(changeFullSections(portfolio.sections));
-  }, [portfolio]);
+  }, [portfolio, dispatch]);
 
   const sections = useSelector((state: any) => state.sections.sections);
   const selectedSection = useSelector((state: any) => state.selectedSection);
@@ -22,19 +31,27 @@ const RenderComponents = ({ portfolio }: { portfolio: Portfolio }) => {
   console.log(sections);
 
   function handleSelectedSection(id: string) {
+    if (!selectionClick) return; // Only handle clicks if selectionClick is true
+
     if (selectedSection.id === id) {
       dispatch(changeSelectedSection(""));
     } else {
       dispatch(changeSelectedSection(id));
     }
   }
+
   console.log(selectedSection);
+
   return (
     <>
       {sections.map((section: Section) => (
         <div
           key={section.id}
-          className={`${section.id === selectedSection.id ? "border-red-200 border" : ""} h-full`}
+          className={`${
+            selectionClick && section.id === selectedSection.id
+              ? "border-red-200 border"
+              : ""
+          } h-full ${selectionClick ? "cursor-pointer" : ""}`}
           onClick={() => handleSelectedSection(section.id)}
         >
           {section.type === "hero" ? (

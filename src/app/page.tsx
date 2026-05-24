@@ -1,24 +1,30 @@
-"use client";
+// app/page.tsx
+import { headers } from "next/headers";
+import Home from "@/components/Home";
+import { getPortfolioByDomain } from "./actions/portfolio";
+import { redirect } from "next/navigation";
+import UserPortfolio from "@/components/UserPortfolio";
 
-import Footer from "@/components/Footer";
-import CTASection from "@/components/HomePage/CTA";
-import Features from "@/components/HomePage/Features";
-import HomeHeroSection from "@/components/HomePage/Hero";
-import ScreenshotSection from "@/components/HomePage/Screenshot";
-import Navbar from "@/components/Navbar";
-import { ModeToggle } from "@/components/theme-toggle";
+export default async function Page() {
+  const subdomain = (await headers()).get("x-subdomain") || "";
 
-const Home = () => {
-  return (
-    <div className="w-screen py-0 px-0 overflow-hidden">
-      <Navbar />
-      <HomeHeroSection />
-      <Features />
-      <ScreenshotSection />
-      <CTASection />
-      <Footer />
-    </div>
-  );
-};
+  if (subdomain) {
+    const data = await getPortfolioByDomain({ domain: subdomain });
 
-export default Home;
+    if (!data || data.error || !data.success) {
+      const host =
+        process.env.NEXT_PUBLIC_HOST ||
+        process.env.HOST ||
+        "http://localhost:3000";
+      redirect(host);
+    }
+
+    return (
+      <main className="w-full min-h-screen">
+        <UserPortfolio portfolio={data.data} />
+      </main>
+    );
+  }
+
+  return <Home />;
+}
