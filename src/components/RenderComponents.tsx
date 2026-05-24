@@ -28,8 +28,6 @@ const RenderComponents = ({
   const sections = useSelector((state: any) => state.sections.sections);
   const selectedSection = useSelector((state: any) => state.selectedSection);
 
-  console.log(sections);
-
   function handleSelectedSection(id: string) {
     if (!selectionClick) return; // Only handle clicks if selectionClick is true
 
@@ -39,8 +37,6 @@ const RenderComponents = ({
       dispatch(changeSelectedSection(id));
     }
   }
-
-  console.log(selectedSection);
 
   return (
     <>

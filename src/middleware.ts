@@ -6,12 +6,6 @@ import { NextResponse } from "next/server";
 function getSubdomain(host: string): string {
   const hostname = host.split(":")[0];
 
-  console.log({
-    hostname,
-    rootDomain: process.env.ROOT_DOMAIN,
-  });
-
-  // localhost
   if (hostname === "localhost") {
     return "";
   }
