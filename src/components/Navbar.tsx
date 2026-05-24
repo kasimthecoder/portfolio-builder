@@ -72,7 +72,7 @@ const Navbar = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => signOut({ callbackURL: "/login" })}
+                  onClick={() => signOut({ callbackUrl: "/login" })}
                   className="gap-2"
                 >
                   <LogOut className="h-4 w-4" />
