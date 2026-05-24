@@ -6,21 +6,33 @@ import { NextResponse } from "next/server";
 function getSubdomain(host: string): string {
   const hostname = host.split(":")[0];
 
-  if (hostname.includes(".localhost")) {
-    return hostname.split(".")[0];
-  }
+  console.log({
+    hostname,
+    rootDomain: process.env.ROOT_DOMAIN,
+  });
 
+  // localhost
   if (hostname === "localhost") {
     return "";
   }
 
-  const rootDomain = process.env.ROOT_DOMAIN || "";
+  // sub.localhost
+  if (hostname.includes(".localhost")) {
+    return hostname.split(".")[0];
+  }
 
+  const rootDomain = process.env.ROOT_DOMAIN;
+
+  if (!rootDomain) {
+    return "";
+  }
+
+  // exact root domain
   if (hostname === rootDomain || hostname === `www.${rootDomain}`) {
     return "";
   }
 
-  if (hostname.endsWith(rootDomain)) {
+  if (hostname.endsWith(`.${rootDomain}`)) {
     return hostname.replace(`.${rootDomain}`, "");
   }
 
