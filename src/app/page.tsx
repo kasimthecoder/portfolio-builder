@@ -6,7 +6,6 @@ import Features from "@/components/HomePage/Features";
 import HomeHeroSection from "@/components/HomePage/Hero";
 import ScreenshotSection from "@/components/HomePage/Screenshot";
 import Navbar from "@/components/Navbar";
-import RenderComponents from "@/components/RenderComponents";
 import { ModeToggle } from "@/components/theme-toggle";
 
 const Home = () => {

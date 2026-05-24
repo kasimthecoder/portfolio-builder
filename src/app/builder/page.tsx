@@ -1,20 +1,15 @@
-"use client";
+import { getPortfolio } from "../actions/portfolio";
+import { redirect } from "next/navigation";
+import BuilderClient from "@/components/builder/BuilderClient";
 
-import RenderComponents from "@/components/RenderComponents";
-import { AppSidebar } from "@/components/sidebar";
-import { ModeToggle } from "@/components/theme-toggle";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+const BuilderPage = async () => {
+  const data = await getPortfolio();
 
-const Builder = () => {
-  return (
-    <div className="w-screen py-0 px-0 overflow-hidden">
-      <ModeToggle />
-      <AppSidebar />
-      <SidebarTrigger className="fixed top-3 left-3 z-99999" />
+  if (!data || data.error || !data.success) {
+    redirect("/create-portfolio");
+  }
 
-      <RenderComponents />
-    </div>
-  );
+  return <BuilderClient portfolio={data.data} />;
 };
 
-export default Builder;
+export default BuilderPage;

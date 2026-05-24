@@ -1,7 +1,7 @@
-import RenderComponents from "@/components/RenderComponents";
-import React from "react";
-import { getPortfolio } from "../actions/portfolio";
+import { getPortfolio } from "@/app/actions/portfolio";
+import PortfolioSettingsPage from "@/components/settings/PortfolioSettingsPage";
 import { redirect } from "next/navigation";
+import React from "react";
 
 const page = async () => {
   const data = await getPortfolio();
@@ -11,7 +11,7 @@ const page = async () => {
   }
   return (
     <div>
-      <RenderComponents portfolio={data.data} />
+      <PortfolioSettingsPage portfolio={data.data} />
     </div>
   );
 };

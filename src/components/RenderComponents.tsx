@@ -6,8 +6,9 @@ import HeroSection from "./hero/HeroSection";
 import { HeroProps } from "@/types/hero.types";
 import ProjectsSection from "./projects/ProjectsSection";
 import { ProjectsProps } from "@/types/projects.types";
+import { Portfolio } from "./builder/BuilderClient";
 
-const RenderComponents = () => {
+const RenderComponents = ({ portfolio }: { portfolio: Portfolio }) => {
   const dispatch = useDispatch();
 
   const sections = useSelector((state: any) => state.sections.sections);
