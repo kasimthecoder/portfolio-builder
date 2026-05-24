@@ -1,15 +1,20 @@
+"use client";
 import { changeSelectedSection } from "@/store/slices/selectedSectionSlice";
 import { Section } from "@/types/types";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HeroSection from "./hero/HeroSection";
 import { HeroProps } from "@/types/hero.types";
 import ProjectsSection from "./projects/ProjectsSection";
 import { ProjectsProps } from "@/types/projects.types";
 import { Portfolio } from "./builder/BuilderClient";
+import { changeFullSections } from "@/store/slices/sectionsSlice";
 
 const RenderComponents = ({ portfolio }: { portfolio: Portfolio }) => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(changeFullSections(portfolio.sections));
+  }, [portfolio]);
 
   const sections = useSelector((state: any) => state.sections.sections);
   const selectedSection = useSelector((state: any) => state.selectedSection);

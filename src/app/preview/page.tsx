@@ -9,6 +9,9 @@ const page = async () => {
   if (!data || data.error || !data.success) {
     redirect("/create-portfolio");
   }
+  if (data.data.sections === 0) {
+    redirect("/builder");
+  }
   return (
     <div>
       <RenderComponents portfolio={data.data} />
