@@ -136,7 +136,7 @@ const Navbar = () => {
                     className="w-full gap-2"
                     onClick={() => {
                       setIsOpen(false);
-                      signOut({ callbackURL: "/login" });
+                      signOut({ callbackUrl: "/login" });
                     }}
                   >
                     <LogOut className="h-4 w-4" />
