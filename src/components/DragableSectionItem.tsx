@@ -29,7 +29,8 @@ const DragableSectionItem = ({
       onClick={() => dispatch(changeSelectedSection(id))}
     >
       <p className="text-sm font-medium capitalize">
-        {section.type} {index + 1}
+        {section.type === "skills-experience" ? "skills" : section.type}{" "}
+        {index + 1}
       </p>
       <div>
         <Button

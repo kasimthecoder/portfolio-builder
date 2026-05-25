@@ -3,12 +3,16 @@ import { changeSelectedSection } from "@/store/slices/selectedSectionSlice";
 import { Section } from "@/types/types";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import HeroSection from "./hero/HeroSection";
+import HeroSection from "./builder-sections/hero/HeroSection";
 import { HeroProps } from "@/types/hero.types";
-import ProjectsSection from "./projects/ProjectsSection";
+import ProjectsSection from "./builder-sections/projects/ProjectsSection";
 import { ProjectsProps } from "@/types/projects.types";
 import { Portfolio } from "./builder/BuilderClient";
 import { changeFullSections } from "@/store/slices/sectionsSlice";
+import SkillExpirienceSection from "./builder-sections/SkillsExperience/SkillExpirienceSection";
+import { SkillsExperienceProps } from "@/types/skills.types";
+import ContactSectionRender from "./builder-sections/contact/ContactSection";
+import { ContactProps } from "@/types/contact.types";
 
 interface RenderComponentsProps {
   portfolio: Portfolio;
@@ -29,7 +33,7 @@ const RenderComponents = ({
   const selectedSection = useSelector((state: any) => state.selectedSection);
 
   function handleSelectedSection(id: string) {
-    if (!selectionClick) return; // Only handle clicks if selectionClick is true
+    if (!selectionClick) return;
 
     if (selectedSection.id === id) {
       dispatch(changeSelectedSection(""));
@@ -57,6 +61,21 @@ const RenderComponents = ({
           )}
           {section.type === "projects" ? (
             <ProjectsSection {...(section.props as ProjectsProps)} />
+          ) : (
+            ""
+          )}
+          {section.type === "skills-experience" ? (
+            <SkillExpirienceSection
+              {...(section.props as SkillsExperienceProps)}
+            />
+          ) : (
+            ""
+          )}
+          {section.type === "contact" ? (
+            <ContactSectionRender
+              {...(section.props as ContactProps)}
+              userId={portfolio.userId}
+            />
           ) : (
             ""
           )}

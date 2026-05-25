@@ -22,12 +22,14 @@ import {
   SelectValue,
 } from "./ui/select";
 import DragableSections from "./DragableSections";
-import HeroForm from "./hero/HeroForm";
-import ProjectsForm from "./projects/ProjectsForm";
+import HeroForm from "./builder-sections/hero/HeroForm";
+import ProjectsForm from "./builder-sections/projects/ProjectsForm";
 import { Portfolio } from "./builder/BuilderClient";
 import {
+  contactSectionSampleData,
   defaultHeroSection,
   defaultProjectsSection,
+  defaultSkillsExperienceSection,
 } from "@/data/defaultSections";
 import { useEffect, useState, useTransition } from "react";
 import { Button } from "./ui/button";
@@ -54,7 +56,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import SkillsExperienceForm from "./builder-sections/SkillsExperience/SkillExperinceForm";
+import ContactForm from "./builder-sections/contact/ContactForm";
 export function AppSidebar({ portfolio }: { portfolio: Portfolio }) {
+  console.log("from portflio");
   const dispatch = useDispatch();
   const [isPending, startTransition] = useTransition();
   const [isContentSame, setIsContentSame] = useState(true);
@@ -76,6 +81,9 @@ export function AppSidebar({ portfolio }: { portfolio: Portfolio }) {
   function handleAddSection(type: string) {
     if (type === "hero") dispatch(addSection(defaultHeroSection));
     if (type === "projects") dispatch(addSection(defaultProjectsSection));
+    if (type === "contact") dispatch(addSection(contactSectionSampleData));
+    if (type === "skills-experience")
+      dispatch(addSection(defaultSkillsExperienceSection));
   }
 
   function handleSave() {
@@ -213,6 +221,10 @@ export function AppSidebar({ portfolio }: { portfolio: Portfolio }) {
             <SelectContent>
               <SelectItem value="hero">Hero</SelectItem>
               <SelectItem value="projects">Projects</SelectItem>
+              <SelectItem value="skills-experience">
+                Skills Experience
+              </SelectItem>
+              <SelectItem value="contact">Contact</SelectItem>
               <SelectItem value="add-section" className="hidden">
                 Add Section
               </SelectItem>
@@ -227,6 +239,10 @@ export function AppSidebar({ portfolio }: { portfolio: Portfolio }) {
         <div>
           {selectedSection?.type === "hero" && <HeroForm />}
           {selectedSection?.type === "projects" && <ProjectsForm />}
+          {selectedSection?.type === "skills-experience" && (
+            <SkillsExperienceForm />
+          )}
+          {selectedSection?.type === "contact" && <ContactForm />}
         </div>
 
         <SidebarGroup />

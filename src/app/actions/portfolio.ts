@@ -170,3 +170,38 @@ export async function getPortfolioByDomain({ domain }: { domain: string }) {
   const data = await res.json();
   return data;
 }
+
+interface ISendEmail {
+  userId: string;
+  visitorName: string;
+  visitorEmail: string;
+  visitorMessage: string;
+}
+
+export async function sendEmail({
+  userId,
+  visitorName,
+  visitorEmail,
+  visitorMessage,
+}: ISendEmail) {
+  const res = await fetch(
+    `${process.env.BACKEND_URL}/api/v1/portfolio/send-email`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+        visitorName,
+        visitorEmail,
+        visitorMessage,
+      }),
+    },
+  );
+
+  if (!res.ok) return { error: "Email Send Fail" };
+  console.log("email sent");
+  const data = await res.json();
+  return data;
+}

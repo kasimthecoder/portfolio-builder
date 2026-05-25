@@ -1,6 +1,6 @@
 export interface Section {
   id: string;
-  type: "hero" | "projects";
+  type: "hero" | "projects" | "skills-experience" | "contact";
   props: Record<string, any>;
 }
 

@@ -4,8 +4,7 @@ import { getPortfolio } from "../actions/portfolio";
 
 const page = async () => {
   const data = await getPortfolio();
-
-  if (data || data.success) {
+  if (data.data?._id) {
     redirect("/builder");
   }
   return (
