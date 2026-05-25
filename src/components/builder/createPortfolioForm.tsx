@@ -145,7 +145,7 @@ const CreatePortfolioForm = () => {
                     </div>
                   </div>
                   <div className="flex items-center px-3 h-9 rounded-r-md border border-l-0 bg-muted text-muted-foreground text-sm whitespace-nowrap">
-                    .portfolio.com
+                    .{process.env.NEXT_PUBLIC_ROOT_DOMAIN}
                   </div>
                 </div>
 

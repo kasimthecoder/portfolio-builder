@@ -130,10 +130,10 @@ export function AppSidebar({ portfolio }: { portfolio: Portfolio }) {
           <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-muted/50 border">
             <Globe className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
             <span className="text-xs text-muted-foreground truncate flex-1">
-              {portfolio.portfolioDomain}.portfolio.com
+              {portfolio.portfolioDomain}.{process.env.NEXT_PUBLIC_ROOT_DOMAIN}
             </span>
             <Link
-              href={`https://${portfolio.portfolioDomain}.portfolio.com`}
+              href={`https://${portfolio.portfolioDomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`}
               target="_blank"
               className="text-muted-foreground hover:text-foreground transition-colors shrink-0"
             >
@@ -186,7 +186,8 @@ export function AppSidebar({ portfolio }: { portfolio: Portfolio }) {
                 <AlertDialogDescription>
                   This will permanently delete{" "}
                   <span className="font-medium text-foreground">
-                    {portfolio.portfolioDomain}.portfolio.com
+                    {portfolio.portfolioDomain}.
+                    {process.env.NEXT_PUBLIC_ROOT_DOMAIN}
                   </span>{" "}
                   and all its content. This cannot be undone.
                 </AlertDialogDescription>

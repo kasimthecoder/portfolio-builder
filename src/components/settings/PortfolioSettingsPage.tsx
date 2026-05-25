@@ -168,7 +168,7 @@ export default function PortfolioSettingsPage({
                 </div>
               </div>
               <div className="flex items-center px-3 h-9 rounded-r-md border border-l-0 bg-muted text-muted-foreground text-sm whitespace-nowrap">
-                .portfolio.com
+                .{process.env.NEXT_PUBLIC_ROOT_DOMAIN}
               </div>
             </div>
             {domainStatus === "available" && (
@@ -187,7 +187,7 @@ export default function PortfolioSettingsPage({
               <p className="text-xs text-muted-foreground">
                 Live at{" "}
                 <span className="font-medium text-foreground">
-                  {domain || "yourname"}.portfolio.com
+                  {domain || "yourname"}.{process.env.NEXT_PUBLIC_ROOT_DOMAIN}
                 </span>
               </p>
             )}
@@ -244,7 +244,7 @@ export default function PortfolioSettingsPage({
                 <AlertDialogDescription>
                   This will permanently delete{" "}
                   <span className="font-medium text-foreground">
-                    {domain}.portfolio.com
+                    {domain}.{process.env.NEXT_PUBLIC_ROOT_DOMAIN}
                   </span>{" "}
                   and all its content. This cannot be undone.
                 </AlertDialogDescription>
